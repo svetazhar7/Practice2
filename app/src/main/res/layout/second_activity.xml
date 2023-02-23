@@ -33,7 +33,8 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        />
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -73,7 +74,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth="match_parent" />
+        app:layout_constraintWidth="match_parent"
+        />
 
     <Button
         android:id="@+id/button"
@@ -92,7 +94,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        android:onClick="onClickMethod" />
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
