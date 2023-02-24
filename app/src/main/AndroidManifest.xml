@@ -12,6 +12,12 @@
         android:theme="@style/Theme.Practice2"
         tools:targetApi="31">
         <activity
+            android:name=".SecondActivityBin"
+            android:exported="false" />
+        <activity
+            android:name=".FirstActivityBin"
+            android:exported="false" />
+        <activity
             android:name=".SecondActivity"
             android:exported="false" />
         <activity
