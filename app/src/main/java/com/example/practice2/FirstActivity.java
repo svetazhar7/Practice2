@@ -1,5 +1,4 @@
 package com.example.practice2;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+
 
 public class FirstActivity extends AppCompatActivity {
     private Button button;
@@ -33,12 +34,20 @@ public class FirstActivity extends AppCompatActivity {
                 // Создаем объект Intent для перехода на вторую активность
                 Intent intent = new Intent(FirstActivity.this, SecondActivity.class);
                 intent.putExtra("rating", rating);// Добавляем в Intent значение rating
-                startActivity(intent);// Запускаем вторую активность
+                startActivityForResult(intent, 1);  // Запускаем вторую активность с кодом запроса 1
             }
         });
-        rating = getIntent().getFloatExtra("rating", 0.0f);// Получаем значение rating,
-        // которое было передано из второй активности в Intent
-        button.setText("Ваша оценка: " + rating);// Устанавливаем текст на кнопке, который будет содержать значение rating
 
+    }
+    // Обрабатываем результат второй активности
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                // Получаем значение рейтинга из переданного Intent
+                float rating = data.getFloatExtra("rating", 0.0f);
+                button.setText("Ваша оценка: " + rating);// Устанавливаем текст на кнопке, который будет содержать значение rating
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

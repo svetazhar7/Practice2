@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 public class SecondActivity extends AppCompatActivity {
 
@@ -37,8 +38,9 @@ public class SecondActivity extends AppCompatActivity {
                 Intent intent = new Intent(SecondActivity.this, FirstActivity.class);
                 // Передаем значение RatingBar в Intent
                 intent.putExtra("rating", rating);
-                // Запускаем активность
-                startActivity(intent);
+                // Устанавливаем результат и закрываем текущую активность
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
     }
