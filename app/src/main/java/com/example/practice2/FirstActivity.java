@@ -1,4 +1,7 @@
 package com.example.practice2;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,15 +11,27 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
-
 public class FirstActivity extends AppCompatActivity {
     private Button button;
     public float rating = 0;//Изначальное значение рейтинга
+    private ActivityResultLauncher<Intent> launcher; // Объявляем переменную типа ActivityResultLauncher
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.first_activity);
+
+        // Регистрируем обратный вызов
+        launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        // Получаем значение рейтинга из переданного Intent
+                        float rating = result.getData().getFloatExtra("rating", 0.0f);
+                        button.setText("Ваша оценка: " + rating);// Устанавливаем текст на кнопке,
+                        // который будет содержать значение rating
+                    }
+                });
+
         TextView textView = findViewById(R.id.textView9);//textView9 - это фио пользователя
         String text = getResources().getString(R.string.fio);//инициализация строкой fio
         textView.setText(text);//установка значения
@@ -34,20 +49,9 @@ public class FirstActivity extends AppCompatActivity {
                 // Создаем объект Intent для перехода на вторую активность
                 Intent intent = new Intent(FirstActivity.this, SecondActivity.class);
                 intent.putExtra("rating", rating);// Добавляем в Intent значение rating
-                startActivityForResult(intent, 1);  // Запускаем вторую активность с кодом запроса 1
+                launcher.launch(intent); // Запускаем вторую активность с помощью обратного вызова
             }
         });
 
-    }
-    // Обрабатываем результат второй активности
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1) {
-            if (resultCode == RESULT_OK) {
-                // Получаем значение рейтинга из переданного Intent
-                float rating = data.getFloatExtra("rating", 0.0f);
-                button.setText("Ваша оценка: " + rating);// Устанавливаем текст на кнопке, который будет содержать значение rating
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 }
